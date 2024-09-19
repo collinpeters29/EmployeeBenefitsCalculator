@@ -1,10 +1,24 @@
+using Api.DbContext;
+using Api.Mappers;
+using AutoMapper;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+//Add Db Context as a singleton. Only need 1 Copy
+builder.Services.AddSingleton(new MockDbContext());
 builder.Services.AddControllers();
+
+// Auto Mapper Configurations. AutoMapper Will Handle all mapping from Model -> DTO and vice versa
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MapProfiles());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

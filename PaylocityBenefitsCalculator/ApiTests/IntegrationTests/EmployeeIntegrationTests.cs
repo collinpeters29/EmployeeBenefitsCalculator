@@ -11,6 +11,7 @@ namespace ApiTests.IntegrationTests;
 
 public class EmployeeIntegrationTests : IntegrationTest
 {
+
     [Fact]
     public async Task WhenAskedForAllEmployees_ShouldReturnAllEmployees()
     {
@@ -85,6 +86,7 @@ public class EmployeeIntegrationTests : IntegrationTest
 
     [Fact]
     //task: make test pass
+    //Ensure API Project is running in another Instance of Visual Studio to connect
     public async Task WhenAskedForAnEmployee_ShouldReturnCorrectEmployee()
     {
         var response = await HttpClient.GetAsync("/api/v1/employees/1");
@@ -101,6 +103,7 @@ public class EmployeeIntegrationTests : IntegrationTest
     
     [Fact]
     //task: make test pass
+    //Ensure API Project is running in another Instance of Visual Studio to connect
     public async Task WhenAskedForANonexistentEmployee_ShouldReturn404()
     {
         var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}");
